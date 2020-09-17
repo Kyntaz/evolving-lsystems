@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="p5.js"></script>
+  <script src="p5.sound.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8">
+
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: black;
+    }
+
+    div {
+      order: 2;
+    }
+
+    .p5Canvas {
+      order: 1;
+      margin: 20px;
+      box-shadow: 0 0 5px 1px white;
+    }
+
+    button {
+      width: 50px;
+      height: 50px;
+      margin: 20px;
+      border-radius: 50%;
+    }
+
+    button.r {
+      background-color: red;
+      border-color: darkred;
+    }
+
+    button.r:hover {
+      box-shadow: 0 0 20px 2px lightcoral;
+    }
+
+    button.g {
+      background-color: green;
+      border-color: darkgreen;
+    }
+
+    button.g:hover {
+      box-shadow: 0 0 20px 2px lightgreen;
+    }
+
+    button.b {
+      background-color: blue;
+      border-color: darkblue;
+    }
+
+    button.b:hover {
+      box-shadow: 0 0 20px 2px lightblue;
+    }
+
+    .text {
+      text-align: center;
+      width: 70%;
+      color: white;
+      font-family: Helvetica, sans-serif;
+      margin-bottom: 20px;
+    }
+    .text p, .text ul {
+      text-align: justify;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="sketch.js"></script>
+
+  <div>
+    <button class="r" onclick="evolve(0)"></button>
+    <button class="g" onclick="evolve(1)"></button>
+    <button class="b" onclick="evolve(2)"></button>
+  </div>
+
+  <div class="text">
+    <h1> Evolving L-Systems </h1>
+    <p>
+      Demonstration of an interactive genetic algorithm for evolving L-Systems.
+      Each colored pattern is drawn by a turtle controlled by a cyclical sequence of instructions.
+      The following instructions exist:
+    </p>
+
+    <ul>
+      <li> "F" (Draw Forward): Moves forward one tile, drawing the path.</li>
+      <li> "L" (Turn Left): Changes direction 90º to the left. </li>
+      <li> "R" (Turn Right): Changes direction 90º to the right. </li>
+      <li> "G" (Ghost Forward): Moves forward, without drawing. </li>
+      <li> "(" (Remember Position): Remembers this position in memory. </li>
+      <li> ")" (Recall Position): Returns to the last remembered position. </li>
+      <li> "[" (Remember Instruction Index): Remembers the current position in the sequence of instructions. </li>
+      <li> "]" (Recall Instruction Index): Returns to the last remembered index in the sequence of instructions. </li>
+    </ul>
+
+    <p>
+      Each turtle has an associated grammar and generates the sequence of instructions to follow by applying the rules of the grammar to an axiom 5 times.
+      The axiom used is "LFRF".
+      The alphabet for the grammar contains the symbols for each of the instructions.
+      All of the symbols are non-terminal.
+      The rules of the grammar have a head and a body.
+      The head is a single symbol, and the body is a sequence of up to 5 symbols.
+      An example rule would be "F &rarr; RFG", meaning that every "F" in the sequence gets replaced by the symbols "RFG".
+    </p>
+
+    <p>
+      Grammars are defined as a collection of these rules, and are made so that new rules can be added.
+      If a grammar has multiple rules with the same head, only the last one to have been added applies, effectively obfuscating previous rules.
+      Each turtle starts with a grammar made up of a single random rule.
+      By selecting one of the turtles with the colored buttons, the other two turtles change their grammar to a copy of the one belonging to the selected turtle.
+      This means that at any point in time, the three turtles only differ their behaviour by one rule.
+      However, since rules have a rippling effect, this can lead to drastic changes in the generated patterns.
+      By selecting patterns that you like, you can effectively guide the system into generating patterns that you will preffer, as the rules from the patterns you select will be carried over into the new patterns.
+    </p>
+  </div>
+
+</body>
+
+</html>
